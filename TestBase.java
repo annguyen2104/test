@@ -27,6 +27,8 @@ public abstract class Base {
 	
 	protected WebDriver driver;
 	protected  String url;
+	protected WebDriverWait wait;
+	protected WebElement element;
 	
 	@Before
 	public void setUp() {
@@ -48,20 +50,20 @@ public abstract class Base {
 	
 	// wait for visibility of an element
 	public void wait(String xpathExpression) {
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		wait = new WebDriverWait(driver, 30);
 		wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpathExpression)));
 	}
 	
 	// click on element
 	public void click(String xpathExpression) {
-		WebElement element = driver.findElement(By.xpath(xpathExpression));
+		element = driver.findElement(By.xpath(xpathExpression));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("argument[0].click;", element);
 	}
 	
 	// enter text or upload file
 	public void enterText(String xpathExpression, String text) {
-		WebElement element = driver.findElement(By.xpath(xpathExpression));
+		element = driver.findElement(By.xpath(xpathExpression));
 		element.clear();
 		element.sendKeys(text);
 	}
